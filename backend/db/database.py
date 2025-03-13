@@ -1,12 +1,16 @@
 import sqlite3
-
-
-
+import os
 # Function to establish a database connection
 def get_db_connection():
-    connection = sqlite3.connect("app.db")
-    connection.row_factory = sqlite3.Row  # To access rows as dictionaries
+    # Get the absolute path to the 'db' folder
+    db_path = os.path.join(os.path.dirname(__file__), 'app.db')  # Adjusted to db/app.db
+    connection = sqlite3.connect(db_path)
+    connection.row_factory = sqlite3.Row
     return connection
+
+
+
+
 # connection = get_db_connection()
 # cursor = connection.cursor()
 # cursor.execute(f"DROP TABLE IF EXISTS inventory")
