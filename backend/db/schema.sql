@@ -15,13 +15,16 @@ CREATE TABLE IF NOT EXISTS inventory (
     itemQuantity INT NOT NULL DEFAULT 0 CHECK (itemQuantity >= 0),
     price DECIMAL(10, 2) NOT NULL DEFAULT 0.00 CHECK (price >= 0),
     createdTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updatedTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updatedTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     stockStatus TEXT DEFAULT 'In Stock' CHECK (stockStatus IN ('In Stock', 'Out of Stock')),
-    supplierName TEXT,  -- Or link to a supplier table
-    category TEXT NOT NULL DEFAULT 'Uncategorized' -- Could be a foreign key if we have a different table
+    supplierName TEXT,
+    category TEXT NOT NULL DEFAULT 'Uncategorized'
 );
 
--- Add the index separately
-CREATE INDEX idx_item_name ON inventory(itemName);
-
+CREATE TRIGGER IF NOT EXISTS update_updatedTime
+AFTER UPDATE ON inventory
+FOR EACH ROW
+BEGIN
+    UPDATE inventory SET updatedTime = CURRENT_TIMESTAMP WHERE id = OLD.id;
+END;
 
