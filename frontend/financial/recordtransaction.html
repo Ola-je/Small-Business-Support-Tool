@@ -4,87 +4,123 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Financial Management</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <div class="container mt-4">
-      <h2 class="mb-4 text-center">Financial Management</h2>
+  <body class="bg-gray-100 font-sans">
+   <!-- Navbar Section -->
+   <nav class="bg-blue-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <!-- Brand Name -->
+        <a href="./index.html" class="text-3xl font-bold">Business Management System</a>
 
-      <div class="row">
-        <div class="col-md-2 col-12 mb-3">
-          <div class="p-3">
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2">
-                <a href="recordtransaction.html" class="btn btn-primary w-100"
-                  >Record Transaction</a
-                >
-              </li>
-              <li class="nav-item mb-2">
-                <a href="financialsummary.html" class="btn btn-primary w-100"
-                  >Financials Summary</a
-                >
-              </li>
-              <li class="nav-item mb-2">
-                <a href="profitlosssummary.html" class="btn btn-primary w-100"
-                  >Profit/Loss Summary</a
-                >
-              </li>
-            </ul>
-          </div>
+        <!-- Desktop Navbar Links -->
+        <div class="space-x-6 hidden md:flex">
+          <a href="../index.html" class="text-lg hover:text-blue-300 transition">Home</a>
+          <a href="../Dashboard.html" class="text-lg hover:text-blue-300 transition">Dashboard</a>
+          <a href="../inventory/addbutton.html" class="text-lg hover:text-blue-300 transition">Inventory</a>
+          <a href="../financial/recordtransaction.html" class="text-lg hover:text-blue-300 transition">Transactions</a>
+          <a href="../index.html#section" class="text-lg hover:text-blue-300 transition">Contact</a>
         </div>
 
-        <div class="col-md-10 col-12">
-          <h4 class="mt-4">Record a Transaction</h4>
-          <form action="/add_financial_record" method="POST">
-            <div class="row">
-              <div class="mb-3 col-md-4 col-12">
-                <label for="date" class="form-label">Date</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="date"
-                  name="date"
-                  required
-                />
+        <!-- Mobile Navbar Toggle -->
+        <div class="md:hidden">
+          <button id="navbar-toggle" class="text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12h18M3 6h18M3 18h18"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navbar Menu (hidden by default, visible when toggled) -->
+      <div id="navbar-menu" class="md:hidden hidden mt-4 space-y-4">
+        <a href="../index.html" class="block text-lg hover:text-blue-300 transition">Home</a>
+        <a href="../Dashboard.html" class="block text-lg hover:text-blue-300 transition">Dashboard</a>
+        <a href="../inventory/addbutton.html" class="block text-lg hover:text-blue-300 transition">Inventory</a>
+        <a href="../financial/recordtransaction.html" class="block text-lg hover:text-blue-300 transition">Transactions</a>
+        <a href="../index.html#section" class="block text-lg hover:text-blue-300 transition">Contact</a>
+      </div>
+    </div>
+  </nav><!-- JavaScript for Toggle Functionality -->
+<script>
+  document.getElementById("navbar-toggle").addEventListener("click", function () {
+    const navbarMenu = document.getElementById("navbar-menu");
+    navbarMenu.classList.toggle("hidden");
+  });
+</script>
+
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-16">
+      <h2 class="text-3xl font-bold text-center text-blue-700 mb-6">Financial Management</h2>
+
+      <div class="flex">
+        <!-- Sidebar Menu -->
+        <div class="w-1/4 bg-white p-4 rounded-lg shadow-md mr-6">
+          <ul class="space-y-4">
+            <li>
+              <a href="recordtransaction.html">
+                <button class="w-full bg-blue-900 text-white py-2 rounded hover:bg-blue-700">Record Transaction</button>
+              </a>
+            </li>
+            <li>
+              <a href="financialsummary.html">
+                <button class="w-full bg-blue-900 text-white py-2 rounded hover:bg-blue-700">Financials Summary</button>
+              </a>
+            </li>
+            <li>
+              <a href="profitlosssummary.html">
+                <button class="w-full bg-blue-900 text-white py-2 rounded hover:bg-blue-700">Profit/Loss Summary</button>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Form Section -->
+        <div class="w-3/4 bg-white p-6 rounded-lg shadow-md">
+          <h4 class="text-2xl font-semibold text-center text-blue-700 mb-6">Record a Transaction</h4>
+          <form action="/add_financial_record" method="POST" class="space-y-6">
+
+            <!-- Date and Type -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="mb-3">
+                <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+                <input type="date" class="mt-2 block w-full p-2 border border-gray-300 rounded-md" id="date" name="date" required />
               </div>
-              <div class="mb-3 col-md-4 col-12">
-                <label class="form-label">Type</label>
-                <select class="form-control" name="type" required>
+              <div class="mb-3">
+                <label for="type" class="block text-sm font-medium text-gray-700">Type</label>
+                <select class="mt-2 block w-full p-2 border border-gray-300 rounded-md" name="type" required>
                   <option value="Income">Income</option>
                   <option value="Expense">Expense</option>
                 </select>
               </div>
-              <div class="mb-3 col-md-8 col-12">
-                <label for="description" class="form-label">Description</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="description"
-                  name="description"
-                  required
-                />
+            </div>
+
+            <!-- Description and Amount -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div class="mb-3">
+                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                <input type="text" class="mt-2 block w-full p-2 border border-gray-300 rounded-md" id="description" name="description" required />
               </div>
-              <div class="mb-3 col-md-4 col-12">
-                <label for="amount" class="form-label">Amount</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="amount"
-                  name="amount"
-                  step="0.01"
-                  required
-                />
+              <div class="mb-3">
+                <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+                <input type="number" class="mt-2 block w-full p-2 border border-gray-300 rounded-md" id="amount" name="amount" step="0.01" required />
               </div>
             </div>
-            <button type="submit" class="btn mb-3 btn-primary">
-              Add Transaction
-            </button>
+
+            <div class="text-center">
+              <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">Add Transaction</button>
+            </div>
           </form>
         </div>
       </div>
     </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-blue-900 text-white text-center py-4">
+      <p>&copy; 2025 Business Management System. All Rights Reserved.</p>
+    </footer>
+
   </body>
 </html>

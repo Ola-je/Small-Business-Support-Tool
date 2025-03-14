@@ -4,159 +4,151 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inventory Management</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href=".css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <div class="container mt-5">
-      <h2 class="mb-4 text-center">Inventory Management</h2>
-      <div class="row">
-        <div class="col-md-2 col-12 mb-3">
-          <div class="p-3">
-            <ul class="nav flex-column">
-              <li class="nav-item mb-2">
-                <a href="addbutton.html"
-                  ><button class="btn btn-primary w-100">Add</button></a
-                >
-              </li>
-              <li class="nav-item mb-2">
-                <a href="updatebutton.html">
-                  <button class="btn btn-warning w-100">Update</button></a
-                >
-              </li>
-              <li class="nav-item mb-2">
-                <a href="deletebutton.html">
-                  <button class="btn btn-danger w-100">Delete</button></a
-                >
-              </li>
-              <li class="nav-item">
-                <a href="viewbutton.html">
-                  <button class="btn btn-success w-100">View</button></a
-                >
-              </li>
-            </ul>
+  <body class="font-sans bg-gray-100">
+
+    <!-- Navbar Section -->
+    <nav class="bg-blue-900 text-white">
+      <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <!-- Brand Name -->
+          <a href="./index.html" class="text-3xl font-bold">Business Management System</a>
+
+          <!-- Desktop Navbar Links -->
+          <div class="space-x-6 hidden md:flex">
+            <a href="../index.html" class="text-lg hover:text-blue-300 transition">Home</a>
+            <a href="../Dashboard.html" class="text-lg hover:text-blue-300 transition">Dashboard</a>
+            <a href="../inventory/addbutton.html" class="text-lg hover:text-blue-300 transition">Inventory</a>
+            <a href="../financial/recordtransaction.html" class="text-lg hover:text-blue-300 transition">Transactions</a>
+            <a href="../index.html#section" class="text-lg hover:text-blue-300 transition">Contact</a>
+          </div>
+
+          <!-- Mobile Navbar Toggle -->
+          <div class="md:hidden">
+            <button id="navbar-toggle" class="text-white focus:outline-none">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12h18M3 6h18M3 18h18"></path>
+              </svg>
+            </button>
           </div>
         </div>
 
-        <div class="col-md-10 col-12">
-          <div class="row mb-4">
-            <div class="col-md-10 col-12">
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Search by Item Name"
-                  name="search"
-                  required
-                />
-                <button type="submit" class="btn btn-primary">Search</button>
+        <!-- Mobile Navbar Menu (hidden by default, visible when toggled) -->
+        <div id="navbar-menu" class="md:hidden hidden mt-4 space-y-4">
+          <a href="../index.html" class="block text-lg hover:text-blue-300 transition">Home</a>
+          <a href="../Dashboard.html" class="block text-lg hover:text-blue-300 transition">Dashboard</a>
+          <a href="../inventory/addbutton.html" class="block text-lg hover:text-blue-300 transition">Inventory</a>
+          <a href="../financial/recordtransaction.html" class="block text-lg hover:text-blue-300 transition">Transactions</a>
+          <a href="../index.html#section" class="block text-lg hover:text-blue-300 transition">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-16">
+      <h2 class="text-3xl font-bold text-center text-blue-700 mb-6">Inventory Management</h2>
+      <div class="flex flex-col md:flex-row gap-6">
+
+        <!-- Sidebar Menu -->
+ <div class="w-64 bg-white p-4 rounded-lg shadow-md flex-shrink-0">
+  <ul class="space-y-4">
+    <li>
+      <a href="addbutton.html">
+        <button class="w-full bg-blue-900 text-white py-2 rounded hover:bg-blue-700">Add Item</button>
+      </a>
+    </li>
+    <li>
+      <a href="updatebutton.html">
+        <button class="w-full bg-blue-900 text-white py-2 rounded hover:bg-blue-700">Update Item</button>
+      </a>
+    </li>
+    <li>
+      <a href="deletebutton.html">
+        <button class="w-full bg-blue-900 text-white py-2 rounded hover:bg-blue-700">Delete Item</button>
+      </a>
+    </li>
+    <li>
+      <a href="viewbutton.html">
+        <button class="w-full bg-blue-900 text-white py-2 rounded hover:bg-blue-700">View Items</button>
+      </a>
+    </li>
+  </ul>
+</div>
+
+        <!-- Form Section -->
+        <div class="md:w-3/4 bg-white p-6 rounded-lg shadow-md">
+          <form action="/update-item" method="POST" class="space-y-6">
+
+            <!-- Item Name & ID -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="itemName" class="block text-sm font-medium text-gray-700">Item Name</label>
+                <input type="text" id="itemName" name="itemName" class="mt-2 block w-full p-2 border border-gray-300 rounded-md" placeholder="Enter Item Name" required />
               </div>
-            </div>
-          </div>
-          <form action="/update-item" method="PUT" class="mb-4">
-            <div class="row">
-              <div class="mb-3 col-md-5 col-12">
-                <label for="itemName" class="form-label">Item Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="itemName"
-                  name="itemName"
-                  required
-                />
-              </div>
-              <div class="mb-3 col-md-5 col-12">
-                <label for="id" class="form-label">Product ID</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="id"
-                  name="id"
-                  required
-                />
-              </div>
-              <div class="mb-3 col-md-5 col-12">
-                <label for="itemQuantity" class="form-label">Quantity</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="itemQuantity"
-                  name="itemQuantity"
-                  required
-                />
-              </div>
-              <div class="mb-3 col-md-5 col-12">
-                <label for="supplierName" class="form-label">Supplier</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="supplierName"
-                  name="supplierName"
-                  step="0.01"
-                  required
-                />
+              <div>
+                <label for="id" class="block text-sm font-medium text-gray-700">Product ID</label>
+                <input type="number" id="id" name="id" class="mt-2 block w-full p-2 border border-gray-300 rounded-md" placeholder="Enter Product ID" required />
               </div>
             </div>
 
-            <div class="row">
-              <div class="mb-3 col-md-6 col-12">
-                <label for="price" class="form-label">Unit Price</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="price"
-                  name="price"
-                  step="0.01"
-                  required
-                />
+            <!-- Item Quantity & Supplier -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="itemQuantity" class="block text-sm font-medium text-gray-700">Quantity</label>
+                <input type="number" id="itemQuantity" name="itemQuantity" class="mt-2 block w-full p-2 border border-gray-300 rounded-md" placeholder="Enter Quantity" required />
               </div>
-              <div class="mb-3 col-md-6 col-12">
-                <label class="form-label">Category</label>
-                <div class="d-flex flex-column">
+              <div>
+                <label for="supplierName" class="block text-sm font-medium text-gray-700">Supplier</label>
+                <input type="text" id="supplierName" name="supplierName" class="mt-2 block w-full p-2 border border-gray-300 rounded-md" placeholder="Enter Supplier Name" required />
+              </div>
+            </div>
+
+            <!-- Item Price & Category -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="price" class="block text-sm font-medium text-gray-700">Unit Price</label>
+                <input type="number" id="price" name="price" step="0.01" class="mt-2 block w-full p-2 border border-gray-300 rounded-md" placeholder="Enter Unit Price" required />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Category</label>
+                <div class="space-y-2">
                   <div>
-                    <input
-                      type="radio"
-                      id="category1"
-                      name="category"
-                      value="Electronics"
-                      required
-                    />
-                    <label for="category1" class="form-check-label"
-                      >Electronics</label
-                    >
+                    <input type="radio" id="category1" name="category" value="Electronics" required />
+                    <label for="category1" class="ml-2">Electronics</label>
                   </div>
                   <div>
-                    <input
-                      type="radio"
-                      id="category2"
-                      name="category"
-                      value="Clothing"
-                      required
-                    />
-                    <label for="category2" class="form-check-label"
-                      >Clothing</label
-                    >
+                    <input type="radio" id="category2" name="category" value="Clothing" required />
+                    <label for="category2" class="ml-2">Clothing</label>
                   </div>
                   <div>
-                    <input
-                      type="radio"
-                      id="category3"
-                      name="category"
-                      value="Food"
-                      required
-                    />
-                    <label for="category3" class="form-check-label">Food</label>
+                    <input type="radio" id="category3" name="category" value="Food" required />
+                    <label for="category3" class="ml-2">Food</label>
                   </div>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-warning">Update Item</button>
+
+            <div class="mt-6 text-center">
+              <button type="submit" class="w-full bg-blue-900 text-white py-3 rounded hover:bg-blue-700">Update Item</button>
+            </div>
           </form>
         </div>
       </div>
     </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-blue-900 text-white text-center py-4">
+      <p>&copy; 2025 Business Management System. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Navbar Toggle -->
+    <script>
+      document.getElementById("navbar-toggle").addEventListener("click", function () {
+        const navbarMenu = document.getElementById("navbar-menu");
+        navbarMenu.classList.toggle("hidden");
+      });
+    </script>
   </body>
 </html>
