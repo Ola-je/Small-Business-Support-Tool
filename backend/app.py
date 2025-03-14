@@ -2,9 +2,13 @@
 from flask import Flask
 
 from routes.inventory_routes import inventory_routes
+from routes.exchange_routes import exchange_bp
+
 
 app = Flask(__name__)
 app.register_blueprint(inventory_routes)
+app.register_blueprint(exchange_bp)
+
 
 @app.route('/')
 def home():
