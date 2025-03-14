@@ -638,7 +638,6 @@ def add_transaction(transactionType, amount, category, description, relatedInven
         logging.error(f"An error occurred while adding a transaction: {e}")
     finally:
         connection.close()
-
 def get_transactions(filters=None):
     try:
         connection = get_db_connection()
@@ -647,7 +646,7 @@ def get_transactions(filters=None):
         conditions = []
         params = []
 
-        if filters:
+        if filters!=None:
             if 'transactionType' in filters:
                 conditions.append("transactionType = ?")
                 params.append(filters['transactionType'])
@@ -660,9 +659,17 @@ def get_transactions(filters=None):
                 conditions.append("transactionDate BETWEEN ? AND ?")
                 params.append(filters['startDate'])
                 params.append(filters['endDate'])
+        else:
+            cursor.execute("SELECT * FROM inventory")
+            rows = cursor.fetchall()
+            return [dict(row) for row in rows]
 
         if conditions:
             query += " WHERE " + " AND ".join(conditions)
+
+        # Debugging: Print the query and parameters
+        print(f"Executing query: {query}")
+        print(f"With parameters: {params}")
 
         cursor.execute(query, params)
         transactions = cursor.fetchall()
@@ -684,6 +691,51 @@ def get_transactions(filters=None):
         return []
     finally:
         connection.close()
+# def get_transactions(filters=None):
+#     try:
+#         connection = get_db_connection()
+#         cursor = connection.cursor()
+#         query = "SELECT * FROM transactions"
+#         conditions = []
+#         params = []
+
+#         if filters:
+#             if 'transactionType' in filters:
+#                 conditions.append("transactionType = ?")
+#                 params.append(filters['transactionType'])
+
+#             if 'category' in filters:
+#                 conditions.append("category = ?")
+#                 params.append(filters['category'])
+
+#             if 'startDate' in filters and 'endDate' in filters:
+#                 conditions.append("transactionDate BETWEEN ? AND ?")
+#                 params.append(filters['startDate'])
+#                 params.append(filters['endDate'])
+
+#         if conditions:
+#             query += " WHERE " + " AND ".join(conditions)
+
+#         cursor.execute(query, params)
+#         transactions = cursor.fetchall()
+
+#         return [
+#             {
+#                 "id": row[0],
+#                 "transactionType": row[1],
+#                 "amount": row[2],
+#                 "category": row[3],
+#                 "description": row[4],
+#                 "transactionDate": row[5],
+#                 "relatedInventoryId": row[6]
+#             }
+#             for row in transactions
+#         ]
+#     except sqlite3.Error as e:
+#         logging.error(f"An error occurred while fetching transactions: {e}")
+#         return []
+#     finally:
+#         connection.close()
 
 def delete_transaction(transactionId):
     try:

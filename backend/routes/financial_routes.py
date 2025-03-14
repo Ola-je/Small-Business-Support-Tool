@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from database import add_transaction, get_transactions, update_transaction, delete_transaction
+from db.database import add_transaction, get_transactions,delete_transaction
 
 # Define the Blueprint
 financial_blueprint = Blueprint("financial", __name__)
@@ -36,22 +36,22 @@ def get_transactions_route():
         return jsonify({"error": str(e)}), 400
 
 # 3. PUT /update-transaction/<transactionId>
-@financial_blueprint.route("/update-transaction/<int:transactionId>", methods=["PUT"])
-def update_transaction_route(transactionId):
-    try:
-        data = request.get_json()
-        update_transaction(
-            transactionId=transactionId,
-            transactionType=data.get("transactionType"),
-            amount=data.get("amount"),
-            category=data.get("category"),
-            description=data.get("description"),
-            transactionDate=data.get("transactionDate"),
-            relatedInventoryId=data.get("relatedInventoryId"),
-        )
-        return jsonify({"message": f"Transaction ID {transactionId} updated successfully!"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
+# @financial_blueprint.route("/update-transaction/<int:transactionId>", methods=["PUT"])
+# def update_transaction_route(transactionId):
+#     try:
+#         data = request.get_json()
+#         update_transaction(
+#             transactionId=transactionId,
+#             transactionType=data.get("transactionType"),
+#             amount=data.get("amount"),
+#             category=data.get("category"),
+#             description=data.get("description"),
+#             transactionDate=data.get("transactionDate"),
+#             relatedInventoryId=data.get("relatedInventoryId"),
+#         )
+#         return jsonify({"message": f"Transaction ID {transactionId} updated successfully!"}), 200
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 400
 
 # 4. DELETE /delete-transaction/<transactionId>
 @financial_blueprint.route("/delete-transaction/<int:transactionId>", methods=['DELETE'])
