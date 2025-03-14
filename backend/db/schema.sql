@@ -28,3 +28,21 @@ BEGIN
     UPDATE inventory SET updatedTime = CURRENT_TIMESTAMP WHERE id = OLD.id;
 END;
 
+CREATE TABLE IF NOT EXISTS transactions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    transactionType TEXT CHECK(transactionType IN ('Income', 'Expense')) NOT NULL,
+    amount REAL NOT NULL CHECK(amount >=0),
+    category TEXT NOT NULL,
+    description TEXT,
+    transactionDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updatedTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    relatedInventoryId INTEGER,
+    FOREIGN KEY (relatedInventoryId) REFERENCES inventory(id)
+);
+CREATE TRIGGER IF NOT EXISTS update_updatedTime
+AFTER UPDATE ON transactions
+FOR EACH ROW
+BEGIN
+    UPDATE transactions SET updatedTime = CURRENT_TIMESTAMP WHERE id = OLD.id;
+END;
+
