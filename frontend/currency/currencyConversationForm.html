@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Exchange</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href=".css" />
+  </head>
+  <body>
+    <div class="container mt-3">
+      <a href="../index.html" class="btn btn-info">Back to Home</a>
+    </div>
+    <div class="container mt-5 mb-3 shadow pt-2 rounded bg-white">
+      <h2 class="mb-4 text-center text-primary font-weight-bold">
+        Currency Exchange
+      </h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-12">
+          <form
+            action="/convert_currency"
+            method="POST"
+            class="p-4 border rounded shadow-sm bg-light"
+          >
+            <div class="mb-3">
+              <label for="amount" class="form-label">Amount</label>
+              <input
+                type="number"
+                class="form-control"
+                id="amount"
+                name="amount"
+                step="0.01"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="from_currency" class="form-label"
+                >From Currency</label
+              >
+              <select
+                class="form-select"
+                id="from_currency"
+                name="from_currency"
+                required
+              >
+                <option value="USD">USD - US Dollar</option>
+                <option value="ETB">KES - Ethiopian Birr</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="to_currency" class="form-label">To Currency</label>
+              <select
+                class="form-select"
+                id="to_currency"
+                name="to_currency"
+                required
+              >
+                <option value="USD">USD - US Dollar</option>
+                <option value="ETB">KES - Ethiopian Birr</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Convert</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
